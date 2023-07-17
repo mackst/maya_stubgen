@@ -804,5 +804,5 @@ def genFromStandalone():
 
 
 def onMayaDroppedPythonFile(obj):
-    if os.path.exists(docsConfig.Paths.MAYA_HLEP):
-        genCmdStubs(docsConfig.Paths.MAYA_HLEP, docsConfig.Paths.PYI_DIR)
+    if os.path.exists(docsConfig.Paths.MAYA_HELP):
+        genCmdStubs(docsConfig.Paths.MAYA_HELP, docsConfig.Paths.PYI_DIR)
