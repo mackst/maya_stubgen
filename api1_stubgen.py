@@ -481,7 +481,7 @@ def writePYI(module: typing.Any, htmlTemp: str, pyiPath: str):
                 moduleProperty += '\n{}: {} = ...\n'.format(name, type(mtype).__name__)
     
     classStr += '\n' + moduleProperty
-    with open(pyiPath, 'w') as pyi:
+    with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write(classStr)
     
 def genAIPStubs(helpDir: str = '', pyiOutDir: str = None, modules: typing.Iterable = None):

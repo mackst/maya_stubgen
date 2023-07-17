@@ -979,7 +979,7 @@ def writePYI(module: typing.Any, htmlTemp: str, pyiPath: str):
             pass
     
     classStr += '\n\n' + funcStr
-    with open(pyiPath, 'w') as pyi:
+    with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write(classStr)
 
 def genStandaloneStubs(pyiOutDir: str = None):
@@ -999,7 +999,7 @@ def genStandaloneStubs(pyiOutDir: str = None):
     code += "    '''\n\n"
     code += 'def uninitialize() -> None: ... \n'
 
-    with open(pyiPath, 'w') as pyi:
+    with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write(code)
 
     print('{} done.'.format(pyiPath))
