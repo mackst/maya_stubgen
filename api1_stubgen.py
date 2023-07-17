@@ -100,7 +100,7 @@ class Api1ClassParaser(HTMLParser):
         self.__memparams = ''
         self.__memitemStatic = False
 
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, typing.Union[str, None]]]) -> None:
         if tag == 'div' and ('id', "dynsection-example0") in attrs:
             self.__ddStart = False
             return

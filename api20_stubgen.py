@@ -167,7 +167,7 @@ class ApiClassParaser(HTMLParser):
 
         self._resetMemItem()
 
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, typing.Union[str, None]]]) -> None:
         if tag == 'div' and ('class', 'textblock') in attrs:
             self.__docStrStart = True
             return
