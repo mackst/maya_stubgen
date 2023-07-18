@@ -687,7 +687,7 @@ def writePYI(cmdModule, htmlTemp: str, pyiPath: str):
         htmlDoc = htmlTemp.format(funcName)
         if os.path.exists(htmlDoc):
             # continue
-            with open(htmlDoc) as f:
+            with open(htmlDoc, encoding='utf8') as f:
                 cmdparser = CmdParaser()
                 cmdparser.feed(f.read())
 
@@ -723,7 +723,7 @@ def writePYI(cmdModule, htmlTemp: str, pyiPath: str):
                 if not onlySFFunc:
                     cmdpyi += lfFunc
 
-    with open(pyiPath, 'w') as pyi:
+    with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write('{}'.format(cmdpyi))
 
     print('{} done.'.format(pyiPath))
@@ -747,7 +747,7 @@ def writeMelPYI(htmlTemp: str, pyiOutDir: str = None):
 
     funcName = 'eval'
     htmlDoc = htmlTemp.format(funcName)
-    with open(htmlDoc) as f:
+    with open(htmlDoc, encoding='utf8') as f:
         cmdparser = CmdParaser()
         cmdparser.feed(f.read())
 
@@ -759,7 +759,7 @@ def writeMelPYI(htmlTemp: str, pyiOutDir: str = None):
         cmdpyi += cmdparser.codeExample.strip().replace("'''", '"""').replace('\n', '\n\t').expandtabs(4)
         cmdpyi += "\n    ```'''"
 
-    with open(pyiPath, 'w') as pyi:
+    with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write(cmdpyi)
 
     print('{} done.'.format(pyiPath))

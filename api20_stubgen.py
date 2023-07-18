@@ -532,7 +532,7 @@ def getClassConstructorFromCpp(className: str, htmlDoc: str):
     if not os.path.exists(classDoc):
         return '    def __init__(self, *args, **kws) -> None: ...\n'
     paraser = api1_stubgen.Api1ClassParaser()
-    with open(classDoc) as f:
+    with open(classDoc, encoding='utf8') as f:
         paraser.feed(f.read())
     constructorItems = paraser.constructorItems
 
@@ -902,7 +902,7 @@ def getClassPYI(className: str, htmlDoc: str, class_: typing.Any):
     members = inspect.getmembers(class_)
 
     paraser = None
-    with open(htmlDoc) as f:
+    with open(htmlDoc, encoding='utf8') as f:
         paraser = ApiClassParaser()
         paraser.feed(f.read())
 

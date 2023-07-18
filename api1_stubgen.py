@@ -398,7 +398,7 @@ def getClassPYI(className: str, htmlDoc: str, class_: typing.Any):
     members = inspect.getmembers(class_)
 
     paraser = None
-    with open(htmlDoc) as f:
+    with open(htmlDoc, encoding='utf8') as f:
         paraser = Api1ClassParaser()
         paraser.feed(f.read())
 

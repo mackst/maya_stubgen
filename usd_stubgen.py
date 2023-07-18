@@ -478,7 +478,7 @@ def writePYI(moduleName: str, docTemp: str, pyiOutDir: str = ''):
     code = 'from __future__ import annotations\n' + code
     code += '\n\n' + funcCode
     code += '\n\n' + properties
-    with open(pyiPath, 'w') as pyi:
+    with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write(code)
 
     return pyiPath
