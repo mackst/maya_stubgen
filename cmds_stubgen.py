@@ -679,7 +679,8 @@ def writePYI(cmdModule, htmlTemp: str, pyiPath: str):
         funcName = cmd[0]
         if funcName.startswith('__'): continue
         try:
-            helpDoc = cmds.help(funcName, so=1, lng='python')
+            # helpDoc = cmds.help(funcName, so=1, lng='python')
+            helpDoc = cmdModule.help(funcName, so=1, lng='python')
         except Exception as error:
             cmdpyi += '\ndef {}(*args: typing.Any, **kwargs: typing.Any): pass\n'.format(funcName)
             continue
