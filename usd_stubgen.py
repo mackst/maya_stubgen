@@ -9,6 +9,7 @@ import importlib
 import inspect
 import keyword
 import builtins
+import textwrap
 import typing
 import xml.etree.ElementTree as et
 
@@ -215,6 +216,8 @@ def getOperatorFunc(funcName: str) -> str:
         'operator T': '',
         'operator UnspecifiedBoolType': '',
         'operator=': '',
+        'operator++': '',
+        'operator->': '',
     }
     funcStr = codeTemp.format(funcName, '', 'None')
     if len(funcName) > len('operator bool '):
@@ -223,12 +226,14 @@ def getOperatorFunc(funcName: str) -> str:
 
 def getClassEnumFromXml(memdef: et.Element) -> str:
     names = {}
-    out = ''
+    enumName = memdef.find('name').text
+    out = '\tclass {}:\n'.format(enumName)
     for i in memdef.findall('enumvalue'):
         name = i.find('name').text
-        out += '    {}: typing.ClassVar[int] = ...\n'.format(name)
+        out += '\t\t{}: typing.ClassVar[int] = ...\n'.format(name)
         names[name] = None
-    return (out, names)
+
+    return (out.expandtabs(4), names)
 
 def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', moduleName: str='') -> str:
     funcNames = {}
@@ -343,12 +348,28 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
             #     print('-'*150)
             #     print(xmlDoc)
 
+    # innerclass
+    innerClass = ''
+    for icls in root.iter('innerclass'):
+        innercls = ''
+        dName = icls.attrib['refid']
+        icPublic = icls.attrib['prot'] == 'public'
+        icName = icls.text
+        if dName and icPublic and icName:
+            docDir = os.path.dirname(xmlDoc)
+            innerXmlDoc = os.path.join(docDir, dName+'.xml')
+            innercls, impMod_ = getClassPyiFromXml(icName.split('::')[-1], innerXmlDoc, moduleName=moduleName)
+            if innercls:
+                innercls = textwrap.indent(innercls, '    ')
+        innerClass += innercls
+
     code += variableCode.expandtabs(4) + '\n'
     code += enumCode
+    code += innerClass
     if code.strip().endswith('):'):
         code = code.replace('):', '):...\n\n')
-    
-    # code += '\n\n'
+    else:
+        code += '\n\n'
     return (code, importModules)
 
 def getClassPyi(clsName: str, cls: typing.Type, parentClass: str) -> str:
@@ -476,14 +497,14 @@ def genUsdStubs(helpDir: str = '', pyiOutDir: str = None):
 
         print('{} done!'.format(pyi))
 
-def genFromStandalone():
+def genFromStandalone(helpDir: str = docsConfig.Paths.USD_XML):
     import maya.standalone as ms
 
     ms.initialize('python')
 
-    helpDir = "E:\\coding\\libs\\usd_build\\docs\\doxy_xml"
-    # pyiDir = os.path.join(os.path.dirname(__file__), 'pyi')
-    pyiDir = None
+    # helpDir = "E:\\coding\\libs\\usd_build\\docs\\doxy_xml"
+    pyiDir = os.path.join(os.path.dirname(__file__), 'pyi')
+    # pyiDir = None
     genUsdStubs(helpDir, pyiDir)
 
     # members = inspect.getmembers(pxr.Usd.Tokens)
@@ -518,3 +539,7 @@ def genFromStandalone():
 def onMayaDroppedPythonFile(obj):
     if os.path.exists(docsConfig.Paths.USD_XML):
         genUsdStubs(docsConfig.Paths.USD_XML, docsConfig.Paths.PYI_DIR)
+
+
+# if __name__ == '__main__':
+#     genFromStandalone()
