@@ -72,47 +72,6 @@ def getUSDTypeName(name: str) -> str:
 
     return name
 
-# usd_classes = {}
-# usd_funcs = []
-# usd_builtins = []
-# members = inspect.getmembers(pxr.Usd)
-# for i in members:
-#     if inspect.isclass(i[1]):
-#         usd_classes[i[0]] = i[1]
-#     elif inspect.isfunction(i[1]):
-#         usd_funcs.append(i[0])
-#     elif inspect.isbuiltin(i[1]):
-#         usd_builtins.append(i[0])
-
-
-# print(usd_classes)
-# print('-'*150)
-# print(usd_funcs)
-# print('-'*150)
-# print(usd_builtins)
-
-# print(usd_classes['Attribute'].__class__)
-
-# xmlDocDir = 'E:\\coding\\libs\\usd_build\\docs\\doxy_xml'
-# for clsName in usd_classes:
-#     xmlName = 'class' + getXmlName('Usd', clsName) + '.xml'
-#     xmlPath = os.path.join(xmlDocDir, xmlName)
-    # if not os.path.exists(xmlPath):
-    #     print(clsName, usd_classes[clsName])
-
-# import stubgen
-# stubgen.genUSD(['pxr.{}._{}'.format(i, i[0].lower()+i[1:]) for i in pxr.__all__])
-# import pprint
-
-# pprint.pprint(['pxr.'+i for i in pxr.__all__])
-
-
-
-# ms.uninitialize()
-# sys.exit()
-
-
-
 BuiltinTypes = {
     '': 'None',
     'none': 'None',
@@ -140,20 +99,6 @@ BuiltinTypes = {
     'fileformatarguments': 'dict',
     '_iterator': 'typing.Iterator',
     'iterator': 'typing.Iterator',
-
-    # '_node': 'typing.Any',
-    # 'calltree': 'typing.Any',
-    # 'filter': 'typing.Any',
-    # 'weakprobeptr': 'typing.Any',
-    # 'weakprobeptr': 'typing.Any',
-    # 'lptr': 'typing.Any',
-    # 'senderptr': 'typing.Any',
-    # 'methodptr': 'typing.Callable',
-    # 'propertypredicatefunc': 'typing.Any',
-    # 'tokentotokenvectormap': 'typing.Any',
-    # 'computeinterpolationinfo': 'typing.Any',
-    # 'purposeinfo': 'typing.Any',
-    # 'protoxforminclusion': 'typing.Any',
 }
 
 
@@ -294,8 +239,9 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
     code = 'class {}({}):\n\n'.format(className, parentClass)
     enumCode = ''
     variableCode = ''
-    if className == "ResolverContext":
-        pass
+    # debug
+    # if className == "ResolverContext":
+    #     pass
     for memdef in root.iter('memberdef'):
         # print(memdef.attrib)
         kind = memdef.attrib['kind']  # function / enum
@@ -321,8 +267,9 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
             if funcName == className or isInitFunc:
                 funcName = '__init__'
 
-            if funcName == 'IsAuthoredAt':
-                pass
+            # # debug
+            # if funcName == 'IsAuthoredAt':
+            #     pass
             detaileddescription = ' '.join(memdef.find('detaileddescription').itertext())
             detaileddescription = detaileddescription.strip().replace('\n', '\n\t\t')
             params = []
