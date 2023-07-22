@@ -119,7 +119,7 @@ def getReturnType(tStr: str):
             ts = ts.replace(i, '').strip()
     return getTypeNameFromCPPType(ts)
 
-def getTypeNameFromCPPType(tStr: str, moduleName: str = '') -> tuple[str, str | None]:
+def getTypeNameFromCPPType(tStr: str, moduleName: str = '') -> tuple[str, typing.Union[str, None]]:
     ts = tStr.replace('*', '').strip()
     ts = ts.replace('&', '').strip()
     ts = ts.replace('const', '').strip()
