@@ -100,6 +100,7 @@ BuiltinTypes = {
     'fileformatarguments': 'dict',
     '_iterator': 'typing.Iterator',
     'iterator': 'typing.Iterator',
+    'class': 'typing.Any',
 }
 
 
@@ -175,7 +176,7 @@ def getParentClassName(className: str, cls: typing.Any) -> str:
     pclasses = {
         'instance': 'object'
     }
-    m = cls.__qualname__
+    # m = cls.__qualname__
     module = inspect.getmodule(cls)
     if module:
         fullClsName = module.__name__ + '.' + pclasses.get(className, className)
@@ -224,6 +225,31 @@ def getOperatorFunc(funcName: str) -> str:
         funcStr = ''
     return operators.get(funcName, funcStr)
 
+def getMemberInfo(cls: typing.Type) -> tuple[dict[str, typing.Type]]:
+    classes = {}
+    functions = {}
+    methods = {}
+    properties = {}
+    classAttries = {}
+    members = inspect.getmembers(cls)
+    for i in members:
+        name, t_ = i
+        if name.startswith('__') and name.endswith('__'): continue
+        if inspect.isclass(t_):
+            classes[name] = t_
+        elif inspect.isfunction(t_):
+            functions[name] = t_
+        elif inspect.ismethod(t_):
+            methods[name] = t_
+        elif inspect.ismethoddescriptor(t_):
+            methods[name] = t_
+        elif inspect.isdatadescriptor(t_) or hasattr(t_, "fget"):
+            properties[name] = t_
+        else:
+            classAttries[name] = t_
+    
+    return (classes, methods, properties, classAttries)
+
 def getClassEnumFromXml(memdef: et.Element) -> str:
     names = {}
     enumName = memdef.find('name').text
@@ -235,7 +261,9 @@ def getClassEnumFromXml(memdef: et.Element) -> str:
 
     return (out.expandtabs(4), names)
 
-def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', moduleName: str='') -> str:
+def getClassPyiFromXml(className: str, xmlDoc: str, cls: typing.Type, parentClass: str = '', moduleName: str='') -> str:
+    classes_, methods_, properties_, classAttries_ = getMemberInfo(cls)
+    # funcWithTypes = {}
     funcNames = {}
     enumNames = {}
     importModules = {}
@@ -245,7 +273,7 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
     enumCode = ''
     variableCode = ''
     # debug
-    # if className == "ResolverContext":
+    # if className == "UsdFileFormat":
     #     pass
     for memdef in root.iter('memberdef'):
         # print(memdef.attrib)
@@ -271,7 +299,9 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
             isInitFunc = funcName.endswith(className) and funcName[0].isupper()
             if funcName == className or isInitFunc:
                 funcName = '__init__'
-
+            # else:
+            #     if funcName not in methods_:
+            #         continue
             # # debug
             # if funcName == 'IsAuthoredAt':
             #     pass
@@ -284,7 +314,7 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
                 if declname is None: continue
                 pname = declname.text
                 ptype = ' '.join(param.find('type').itertext())
-                pt, m = getTypeNameFromCPPType(ptype, moduleName)
+                pt, m = getTypeNameFromCPPType(ptype)
                 if m: importModules[m] = None
                 params.append('{}: {} = ...'.format(pname, pt))
             
@@ -337,8 +367,8 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
             # TODO type al
             pass
         else:
-            if isPublic:
-                print(kind)
+            # if isPublic:
+            #     print(kind)
                 # if kind == 'variable':
                 #     print('-'*150)
                 #     print(xmlDoc)
@@ -347,6 +377,19 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
             # if kind == 'variable':
             #     print('-'*150)
             #     print(xmlDoc)
+
+    # properties_
+    for pname in properties_:
+        pt = properties_[pname]
+        rts = 'typing.Any'
+        if 'def {}('.format(pname) in variableCode: continue
+        getCode = '\t@property\n'
+        getCode += '\tdef {}(self) -> {}: ...\n'.format(pname, rts)
+        variableCode += getCode
+        if hasattr(pt, "fset") and pt.fset is None:
+            setCode = '\t@{}.setter\n'.format(pname)
+            setCode += '\tdef {}(self, v: {}) -> None: ...\n'.format(pname, rts)
+            variableCode += setCode
 
     # innerclass
     innerClass = ''
@@ -358,7 +401,10 @@ def getClassPyiFromXml(className: str, xmlDoc: str, parentClass: str = '', modul
         if dName and icPublic and icName:
             docDir = os.path.dirname(xmlDoc)
             innerXmlDoc = os.path.join(docDir, dName+'.xml')
-            innercls, impMod_ = getClassPyiFromXml(icName.split('::')[-1], innerXmlDoc, moduleName=moduleName)
+            clsName = icName.split('::')[-1]
+            if clsName not in classes_: continue
+            it_ = inspect.getattr_static(cls, clsName)
+            innercls, impMod_ = getClassPyiFromXml(clsName, innerXmlDoc, classes_[clsName], moduleName=moduleName)
             if innercls:
                 innercls = textwrap.indent(innercls, '    ')
         innerClass += innercls
@@ -453,7 +499,7 @@ def writePYI(moduleName: str, docTemp: str, pyiOutDir: str = ''):
             # xmlDoc = docTemp.format(getXmlName(moduleName, name))
             xmlDoc = getXmlDoc(moduleName, name, docTemp)
             if os.path.exists(xmlDoc):
-                classCode, ims = getClassPyiFromXml(name, xmlDoc, pclass, moduleName)
+                classCode, ims = getClassPyiFromXml(name, xmlDoc, mtype, pclass, moduleName)
                 importModules.update(ims)
                 mcode += classCode
             else:
