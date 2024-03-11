@@ -3,7 +3,7 @@
 # 作者：石池
 
 
-from imp import reload
+from importlib import reload
 import os
 
 import cmds_stubgen
@@ -18,7 +18,7 @@ import docsConfig
 # docsConfig.Paths.PYI_DIR = os.path.join(os.path.dirname(__file__), 'pyi')
 
 def main():
-    cmds_stubgen.genCmdStubs(docsConfig.Paths.MAYA_HLEP, docsConfig.Paths.PYI_DIR)
+    cmds_stubgen.genCmdStubs(docsConfig.Paths.MAYA_HELP, docsConfig.Paths.PYI_DIR)
     api1_stubgen.genAIPStubs(docsConfig.Paths.MAYA_API, docsConfig.Paths.PYI_DIR)
     api20_stubgen.genAIP20Stubs(docsConfig.Paths.MAYA_API, docsConfig.Paths.PYI_DIR)
     ufe_stubgen.main()
@@ -31,6 +31,6 @@ def onMayaDroppedPythonFile(obj):
     # reload(api1_stubgen)
     # reload(api20_stubgen)
     # reload(usd_stubgen)
-    reload(docsConfig)
+    # reload(docsConfig)
     main()
 

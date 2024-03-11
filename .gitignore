@@ -1,3 +1,6 @@
 .vscode
 pyi/pxr/
+pyi/maya/
 __pycache__
+
+test*

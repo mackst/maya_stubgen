@@ -130,197 +130,199 @@ def getFuncSynopsisTypes(synopsis: str):
     return types
 
 
-helpFuncTypes = {'(multi-use)': 'typing.Any',
- 'Angle': float.__name__,
- 'Angle (Query Arg Mandatory)': float.__name__,
- 'Angle Angle': 'tuple[float, float]',
- 'Angle Angle Angle': 'tuple[float, float, float]',
- 'Float': float.__name__,
- 'Float (Query Arg Mandatory)': float.__name__,
- 'Float (multi-use)': float.__name__,
- 'Float Float': 'tuple[float, float]',
- 'Float Float (multi-use)': 'tuple[float, float]',
- 'Float Float Float': 'tuple[float, float, float]',
- 'Float Float Float (multi-use)': 'tuple[float, float, float]',
- 'Float Float Float Float': 'tuple[float, float, float, float]',
- 'Float Float Float Float Float Float': 'tuple[float, float, float, float, float, float]',
- 'Float Float Float Float Float Float (multi-use)': 'tuple[float, float, float, float, float, float]',
- 'Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float': 'tuple[float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float]',
- 'Float Int String (Query Arg Mandatory)': 'tuple[float, int, str]',
- 'Float Int String (Query Arg Optional)': 'tuple[float, int, str]',
- 'Float Int String (multi-use)': 'tuple[float, int, str]',
- 'Float String': 'tuple[float, str]',
- 'Float on|off (multi-use)': 'tuple[float, bool]',
- 'FloatRange (Query Arg Mandatory)': 'list[float]',
- 'FloatRange (multi-use)': 'list[float]',
- 'FloatRange (multi-use) (Query Arg Mandatory)': 'list[float]',
- 'IndexRange (Query Arg Mandatory)': 'list[int]',
- 'IndexRange (multi-use)': 'list[int]',
- 'IndexRange (multi-use) (Query Arg Mandatory)': 'list[int]',
- 'Int': int.__name__,
- 'Int (Query Arg Mandatory)': int.__name__,
- 'Int (Query Arg Optional)': int.__name__,
- 'Int (multi-use)': int.__name__,
- 'Int Float': 'tuple[int, float]',
- 'Int Float (multi-use)': 'tuple[int, float]',
- 'Int Float Float': 'tuple[int, float, float]',
- 'Int Float Float Float': 'tuple[int, float, float, float]',
- 'Int Float Float Float (multi-use)': 'tuple[int, float, float, float]',
- 'Int Float [ Float Float ] (multi-use)': 'tuple[int, float, tuple[float, float]]',
- 'Int Int': 'tuple[int, int]',
- 'Int Int (Query Arg Mandatory)': 'tuple[int, int]',
- 'Int Int (multi-use)': 'tuple[int, int]',
- 'Int Int (multi-use) (Query Arg Mandatory)': 'tuple[int, int]',
- 'Int Int Float': 'tuple[int, int, float]',
- 'Int Int Float Float Float': 'tuple[int, int, float, float, float]',
- 'Int Int Int': 'tuple[int, int, int]',
- 'Int Int Int (multi-use)': 'tuple[int, int, int]',
- 'Int Int Int Int': 'tuple[int, int, int, int]',
- 'Int Int Int Int Int': 'tuple[int, int, int, int, int]',
- 'Int Int Int Int Int Int': 'tuple[int, int, int, int, int, int]',
- 'Int Name': 'tuple[int, str]',
- 'Int Script (multi-use)': 'tuple[int, str]',
- 'Int String': 'tuple[int, str]',
- 'Int String (multi-use)': 'tuple[int, str]',
- 'Int String Int (multi-use)': 'tuple[int, str]',
- 'Int [ Int ]': 'tuple[int, list[int]]',
- 'Int [ String ]': 'tuple[int, list[str]]',
- 'Int on|off': 'tuple[int, bool]',
- 'Int on|off (multi-use)': 'tuple[int, bool]',
- 'Int on|off String String String String': 'tuple[int, bool, str, str, str, str]',
- 'Int64': int.__name__,
- 'Int64 (Query Arg Mandatory)': int.__name__,
- 'Int64 (multi-use)': int.__name__,
- 'Int[...]': 'list[int]',
- 'Length': float.__name__,
- 'Length (Query Arg Mandatory)': float.__name__,
- 'Length (multi-use)': float.__name__,
- 'Length Length': 'tuple[float, float]',
- 'Length Length Length': 'tuple[float, float, float]',
- 'Length Length Length (multi-use)': 'tuple[float, float, float]',
- 'Length Length Length Float (multi-use)': 'tuple[float, float, float, float]',
- 'Length Length Length Length': 'tuple[float, float, float, float]',
- 'Length Length Length Length (multi-use)': 'tuple[float, float, float, float]',
- 'Length Length Length Length Length': 'tuple[float, float, float, float, float]',
- 'Name': str.__name__,
- 'Name (Query Arg Mandatory)': str.__name__,
- 'Name (multi-use)': str.__name__,
- 'Name Int': 'tuple[str, int]',
- 'Name String': 'tuple[str, str]',
- 'Name on|off': 'tuple[str, bool]',
- 'Script': str.__name__,
- 'Script Script': 'tuple[str, str]',
- 'Script String': 'tuple[str, str]',
- 'String': str.__name__,
- 'String (Query Arg Mandatory)': str.__name__,
- 'String (Query Arg Optional)': str.__name__,
- 'String (multi-use)': str.__name__,
- 'String (multi-use) (Query Arg Mandatory)': str.__name__,
- 'String (multi-use) (Query Arg Optional)': str.__name__,
- 'String Float': 'tuple[str, float]',
- 'String Float (multi-use)': 'tuple[str, float]',
- 'String Float (multi-use) (Query Arg Optional)': 'tuple[str, float]',
- 'String Float Float': 'tuple[str, float, float]',
- 'String Float Float (multi-use)': 'tuple[str, float, float]',
- 'String Float Float Float': 'tuple[str, float, float, float]',
- 'String Float Float Float (multi-use)': 'tuple[str, float, float, float]',
- 'String Float Float Float Float (multi-use)': 'tuple[str, float, float, float, float]',
- 'String Int': 'tuple[str, int]',
- 'String Int (multi-use)': 'tuple[str, int]',
- 'String Int (multi-use) (Query Arg Optional)': 'tuple[str, int]',
- 'String Int Float': 'tuple[str, int, float]',
- 'String Int Float Float Float (multi-use)': 'tuple[str, int, float, float, float]',
- 'String Int Int': 'tuple[str, int, int]',
- 'String Int Int (multi-use)': 'tuple[str, int, int]',
- 'String Int Int Int': 'tuple[str, int, int, int]',
- 'String Int Int Int (multi-use)': 'tuple[str, int, int, int]',
- 'String Int Int Int Int (multi-use)': 'tuple[str, int, int, int, int]',
- 'String Int String (multi-use)': 'tuple[str, int, str]',
- 'String Int String (multi-use) (Query Arg Mandatory)': 'tuple[str, int, str]',
- 'String Int on|off (multi-use)': 'tuple[str, int, bool]',
- 'String Script': 'tuple[str, str]',
- 'String String': 'tuple[str, str]',
- 'String String (Query Arg Mandatory)': 'tuple[str, str]',
- 'String String (Query Arg Optional)': 'tuple[str, str]',
- 'String String (multi-use)': 'tuple[str, str]',
- 'String String Float': 'tuple[str, str, float]',
- 'String String Int': 'tuple[str, str, int]',
- 'String String Int (multi-use)': 'tuple[str, str, int]',
- 'String String Int Int (multi-use)': 'tuple[str, str, int, int]',
- 'String String Int String (multi-use)': 'tuple[str, str, int, str]',
- 'String String Script (multi-use)': 'tuple[str, str, str]',
- 'String String String': 'tuple[str, str, str]',
- 'String String String (multi-use)': 'tuple[str, str, str]',
- 'String String String String': 'tuple[str, str, str, str]',
- 'String String String String (multi-use)': 'tuple[str, str, str, str]',
- 'String String String String String': 'tuple[str, str, str, str, str]',
- 'String String String String String String': 'tuple[str, str, str, str, str, str]',
- 'String String String on|off': 'tuple[str, str, str, bool]',
- 'String String UnsignedInt': 'tuple[str, str, int]',
- 'String String on|off': 'tuple[str, str, bool]',
- 'String String[...] (Query Arg Mandatory)': 'tuple[str, list[str]]',
- 'String UnsignedInt': 'tuple[str, int]',
- 'String UnsignedInt String Float (multi-use)': 'tuple[str, int, str, float]',
- 'String [ String String ]': 'tuple[str, tuple[str, str]]',
- 'String [ String ]': 'tuple[str, list[str]]',
- 'String on|off': 'tuple[str, bool]',
- 'String on|off (multi-use)': 'tuple[str, bool]',
- 'String on|off (multi-use) (Query Arg Mandatory)': 'tuple[str, bool]',
- 'String[...]': 'list[str]',
- 'String[...] (Query Arg Mandatory)': 'list[str]',
- 'Time': float.__name__,
- 'Time (multi-use)': float.__name__,
- 'Time (multi-use) (Query Arg Mandatory)': float.__name__,
- 'Time Time Float': 'tuple[float, float, float]',
- 'TimeRange': 'list[float]',
- 'TimeRange (Query Arg Mandatory)': 'list[float]',
- 'TimeRange (multi-use)': 'list[float]',
- 'TimeRange (multi-use) (Query Arg Mandatory)': 'list[float]',
- 'TimeRange on|off': 'tuple[list[float], bool]',
- 'UnsignedInt': int.__name__,
- 'UnsignedInt (Query Arg Mandatory)': int.__name__,
- 'UnsignedInt (Query Arg Optional)': int.__name__,
- 'UnsignedInt (multi-use)': int.__name__,
- 'UnsignedInt (multi-use) (Query Arg Mandatory)': int.__name__,
- 'UnsignedInt Float (multi-use)': 'tuple[int, float]',
- 'UnsignedInt Float Float String': 'tuple[int, float, float, str]',
- 'UnsignedInt Float Float String Float': 'tuple[int, float, float, str, float]',
- 'UnsignedInt Length (multi-use)': 'tuple[int, float]',
- 'UnsignedInt String': 'tuple[int, str]',
- 'UnsignedInt String (multi-use)': 'tuple[int, str]',
- 'UnsignedInt String Float': 'tuple[int, str, float]',
- 'UnsignedInt String Float Float Float': 'tuple[int, str, float, float, float]',
- 'UnsignedInt String Float Float Float Float': 'tuple[int, str, float, float, float, float]',
- 'UnsignedInt String Int': 'tuple[int, str, int]',
- 'UnsignedInt String String': 'tuple[int, str, str]',
- 'UnsignedInt String String (multi-use)': 'tuple[int, str, str]',
- 'UnsignedInt String UnsignedInt UnsignedInt': 'tuple[int, str, int, int]',
- 'UnsignedInt String on|off': 'tuple[int, str, bool]',
- 'UnsignedInt UnsignedInt': 'tuple[int, int]',
- 'UnsignedInt UnsignedInt (Query Arg Optional)': 'tuple[int, int]',
- 'UnsignedInt UnsignedInt (multi-use)': 'tuple[int, int]',
- 'UnsignedInt UnsignedInt Float String': 'tuple[int, int, float, float]',
- 'UnsignedInt UnsignedInt UnsignedInt': 'tuple[int, int, int]',
- 'UnsignedInt UnsignedInt UnsignedInt Float Float (multi-use)': 'tuple[int, int, int, float, float]',
- 'UnsignedInt UnsignedInt UnsignedInt UnsignedInt': 'tuple[int, int, int, int]',
- 'UnsignedInt UnsignedInt UnsignedInt UnsignedInt on|off': 'tuple[int, int, int, int, bool]',
- 'UnsignedInt on|off': 'tuple[int, bool]',
- 'UnsignedInt on|off (multi-use)': 'tuple[int, bool]',
- '[ Float Float Float ] (multi-use)': tuple[float, float, float],
- '[ String Script ]': 'tuple[str, str]',
- '[ on|off Float ]': 'tuple[bool, float]',
- 'on|off': bool.__name__,
- 'on|off (Query Arg Mandatory)': bool.__name__,
- 'on|off (Query Arg Optional)': bool.__name__,
- 'on|off (multi-use)': bool.__name__,
- 'on|off String': 'tuple[bool, str]',
- 'on|off String Int': 'tuple[bool, str, int]',
- 'on|off String String String String (multi-use)': 'tuple[bool, str, str, str, str]',
- 'on|off on|off': 'tuple[bool, bool]',
- 'on|off on|off on|off': 'tuple[bool, bool, bool]',
- 'on|off on|off on|off on|off': 'tuple[bool, bool, bool, bool]',
- 'on|off on|off on|off on|off on|off': 'tuple[bool, bool, bool, bool, bool]',
- 'on|off on|off on|off on|off on|off on|off on|off': 'tuple[bool, bool, bool, bool, bool, bool, bool]'}
+helpFuncTypes = {
+    '(multi-use)': 'typing.Any',
+    'Angle': float.__name__,
+    'Angle (Query Arg Mandatory)': float.__name__,
+    'Angle Angle': 'tuple[float, float]',
+    'Angle Angle Angle': 'tuple[float, float, float]',
+    'Float': float.__name__,
+    'Float (Query Arg Mandatory)': float.__name__,
+    'Float (multi-use)': float.__name__,
+    'Float Float': 'tuple[float, float]',
+    'Float Float (multi-use)': 'tuple[float, float]',
+    'Float Float Float': 'tuple[float, float, float]',
+    'Float Float Float (multi-use)': 'tuple[float, float, float]',
+    'Float Float Float Float': 'tuple[float, float, float, float]',
+    'Float Float Float Float Float Float': 'tuple[float, float, float, float, float, float]',
+    'Float Float Float Float Float Float (multi-use)': 'tuple[float, float, float, float, float, float]',
+    'Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float': 'tuple[float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float]',
+    'Float Int String (Query Arg Mandatory)': 'tuple[float, int, str]',
+    'Float Int String (Query Arg Optional)': 'tuple[float, int, str]',
+    'Float Int String (multi-use)': 'tuple[float, int, str]',
+    'Float String': 'tuple[float, str]',
+    'Float on|off (multi-use)': 'tuple[float, bool]',
+    'FloatRange (Query Arg Mandatory)': 'list[float]',
+    'FloatRange (multi-use)': 'list[float]',
+    'FloatRange (multi-use) (Query Arg Mandatory)': 'list[float]',
+    'IndexRange (Query Arg Mandatory)': 'list[int]',
+    'IndexRange (multi-use)': 'list[int]',
+    'IndexRange (multi-use) (Query Arg Mandatory)': 'list[int]',
+    'Int': int.__name__,
+    'Int (Query Arg Mandatory)': int.__name__,
+    'Int (Query Arg Optional)': int.__name__,
+    'Int (multi-use)': int.__name__,
+    'Int Float': 'tuple[int, float]',
+    'Int Float (multi-use)': 'tuple[int, float]',
+    'Int Float Float': 'tuple[int, float, float]',
+    'Int Float Float Float': 'tuple[int, float, float, float]',
+    'Int Float Float Float (multi-use)': 'tuple[int, float, float, float]',
+    'Int Float [ Float Float ] (multi-use)': 'tuple[int, float, tuple[float, float]]',
+    'Int Int': 'tuple[int, int]',
+    'Int Int (Query Arg Mandatory)': 'tuple[int, int]',
+    'Int Int (multi-use)': 'tuple[int, int]',
+    'Int Int (multi-use) (Query Arg Mandatory)': 'tuple[int, int]',
+    'Int Int Float': 'tuple[int, int, float]',
+    'Int Int Float Float Float': 'tuple[int, int, float, float, float]',
+    'Int Int Int': 'tuple[int, int, int]',
+    'Int Int Int (multi-use)': 'tuple[int, int, int]',
+    'Int Int Int Int': 'tuple[int, int, int, int]',
+    'Int Int Int Int Int': 'tuple[int, int, int, int, int]',
+    'Int Int Int Int Int Int': 'tuple[int, int, int, int, int, int]',
+    'Int Name': 'tuple[int, str]',
+    'Int Script (multi-use)': 'tuple[int, str]',
+    'Int String': 'tuple[int, str]',
+    'Int String (multi-use)': 'tuple[int, str]',
+    'Int String Int (multi-use)': 'tuple[int, str]',
+    'Int [ Int ]': 'tuple[int, list[int]]',
+    'Int [ String ]': 'tuple[int, list[str]]',
+    'Int on|off': 'tuple[int, bool]',
+    'Int on|off (multi-use)': 'tuple[int, bool]',
+    'Int on|off String String String String': 'tuple[int, bool, str, str, str, str]',
+    'Int64': int.__name__,
+    'Int64 (Query Arg Mandatory)': int.__name__,
+    'Int64 (multi-use)': int.__name__,
+    'Int[...]': 'list[int]',
+    'Length': float.__name__,
+    'Length (Query Arg Mandatory)': float.__name__,
+    'Length (multi-use)': float.__name__,
+    'Length Length': 'tuple[float, float]',
+    'Length Length Length': 'tuple[float, float, float]',
+    'Length Length Length (multi-use)': 'tuple[float, float, float]',
+    'Length Length Length Float (multi-use)': 'tuple[float, float, float, float]',
+    'Length Length Length Length': 'tuple[float, float, float, float]',
+    'Length Length Length Length (multi-use)': 'tuple[float, float, float, float]',
+    'Length Length Length Length Length': 'tuple[float, float, float, float, float]',
+    'Name': str.__name__,
+    'Name (Query Arg Mandatory)': str.__name__,
+    'Name (multi-use)': str.__name__,
+    'Name Int': 'tuple[str, int]',
+    'Name String': 'tuple[str, str]',
+    'Name on|off': 'tuple[str, bool]',
+    'Script': str.__name__,
+    'Script Script': 'tuple[str, str]',
+    'Script String': 'tuple[str, str]',
+    'String': str.__name__,
+    'String (Query Arg Mandatory)': str.__name__,
+    'String (Query Arg Optional)': str.__name__,
+    'String (multi-use)': str.__name__,
+    'String (multi-use) (Query Arg Mandatory)': str.__name__,
+    'String (multi-use) (Query Arg Optional)': str.__name__,
+    'String Float': 'tuple[str, float]',
+    'String Float (multi-use)': 'tuple[str, float]',
+    'String Float (multi-use) (Query Arg Optional)': 'tuple[str, float]',
+    'String Float Float': 'tuple[str, float, float]',
+    'String Float Float (multi-use)': 'tuple[str, float, float]',
+    'String Float Float Float': 'tuple[str, float, float, float]',
+    'String Float Float Float (multi-use)': 'tuple[str, float, float, float]',
+    'String Float Float Float Float (multi-use)': 'tuple[str, float, float, float, float]',
+    'String Int': 'tuple[str, int]',
+    'String Int (multi-use)': 'tuple[str, int]',
+    'String Int (multi-use) (Query Arg Optional)': 'tuple[str, int]',
+    'String Int Float': 'tuple[str, int, float]',
+    'String Int Float Float Float (multi-use)': 'tuple[str, int, float, float, float]',
+    'String Int Int': 'tuple[str, int, int]',
+    'String Int Int (multi-use)': 'tuple[str, int, int]',
+    'String Int Int Int': 'tuple[str, int, int, int]',
+    'String Int Int Int (multi-use)': 'tuple[str, int, int, int]',
+    'String Int Int Int Int (multi-use)': 'tuple[str, int, int, int, int]',
+    'String Int String (multi-use)': 'tuple[str, int, str]',
+    'String Int String (multi-use) (Query Arg Mandatory)': 'tuple[str, int, str]',
+    'String Int on|off (multi-use)': 'tuple[str, int, bool]',
+    'String Script': 'tuple[str, str]',
+    'String String': 'tuple[str, str]',
+    'String String (Query Arg Mandatory)': 'tuple[str, str]',
+    'String String (Query Arg Optional)': 'tuple[str, str]',
+    'String String (multi-use)': 'tuple[str, str]',
+    'String String Float': 'tuple[str, str, float]',
+    'String String Int': 'tuple[str, str, int]',
+    'String String Int (multi-use)': 'tuple[str, str, int]',
+    'String String Int Int (multi-use)': 'tuple[str, str, int, int]',
+    'String String Int String (multi-use)': 'tuple[str, str, int, str]',
+    'String String Script (multi-use)': 'tuple[str, str, str]',
+    'String String String': 'tuple[str, str, str]',
+    'String String String (multi-use)': 'tuple[str, str, str]',
+    'String String String String': 'tuple[str, str, str, str]',
+    'String String String String (multi-use)': 'tuple[str, str, str, str]',
+    'String String String String String': 'tuple[str, str, str, str, str]',
+    'String String String String String String': 'tuple[str, str, str, str, str, str]',
+    'String String String on|off': 'tuple[str, str, str, bool]',
+    'String String UnsignedInt': 'tuple[str, str, int]',
+    'String String on|off': 'tuple[str, str, bool]',
+    'String String[...] (Query Arg Mandatory)': 'tuple[str, list[str]]',
+    'String UnsignedInt': 'tuple[str, int]',
+    'String UnsignedInt String Float (multi-use)': 'tuple[str, int, str, float]',
+    'String [ String String ]': 'tuple[str, tuple[str, str]]',
+    'String [ String ]': 'tuple[str, list[str]]',
+    'String on|off': 'tuple[str, bool]',
+    'String on|off (multi-use)': 'tuple[str, bool]',
+    'String on|off (multi-use) (Query Arg Mandatory)': 'tuple[str, bool]',
+    'String[...]': 'list[str]',
+    'String[...] (Query Arg Mandatory)': 'list[str]',
+    'Time': float.__name__,
+    'Time (multi-use)': float.__name__,
+    'Time (multi-use) (Query Arg Mandatory)': float.__name__,
+    'Time Time Float': 'tuple[float, float, float]',
+    'TimeRange': 'list[float]',
+    'TimeRange (Query Arg Mandatory)': 'list[float]',
+    'TimeRange (multi-use)': 'list[float]',
+    'TimeRange (multi-use) (Query Arg Mandatory)': 'list[float]',
+    'TimeRange on|off': 'tuple[list[float], bool]',
+    'UnsignedInt': int.__name__,
+    'UnsignedInt (Query Arg Mandatory)': int.__name__,
+    'UnsignedInt (Query Arg Optional)': int.__name__,
+    'UnsignedInt (multi-use)': int.__name__,
+    'UnsignedInt (multi-use) (Query Arg Mandatory)': int.__name__,
+    'UnsignedInt Float (multi-use)': 'tuple[int, float]',
+    'UnsignedInt Float Float String': 'tuple[int, float, float, str]',
+    'UnsignedInt Float Float String Float': 'tuple[int, float, float, str, float]',
+    'UnsignedInt Length (multi-use)': 'tuple[int, float]',
+    'UnsignedInt String': 'tuple[int, str]',
+    'UnsignedInt String (multi-use)': 'tuple[int, str]',
+    'UnsignedInt String Float': 'tuple[int, str, float]',
+    'UnsignedInt String Float Float Float': 'tuple[int, str, float, float, float]',
+    'UnsignedInt String Float Float Float Float': 'tuple[int, str, float, float, float, float]',
+    'UnsignedInt String Int': 'tuple[int, str, int]',
+    'UnsignedInt String String': 'tuple[int, str, str]',
+    'UnsignedInt String String (multi-use)': 'tuple[int, str, str]',
+    'UnsignedInt String UnsignedInt UnsignedInt': 'tuple[int, str, int, int]',
+    'UnsignedInt String on|off': 'tuple[int, str, bool]',
+    'UnsignedInt UnsignedInt': 'tuple[int, int]',
+    'UnsignedInt UnsignedInt (Query Arg Optional)': 'tuple[int, int]',
+    'UnsignedInt UnsignedInt (multi-use)': 'tuple[int, int]',
+    'UnsignedInt UnsignedInt Float String': 'tuple[int, int, float, float]',
+    'UnsignedInt UnsignedInt UnsignedInt': 'tuple[int, int, int]',
+    'UnsignedInt UnsignedInt UnsignedInt Float Float (multi-use)': 'tuple[int, int, int, float, float]',
+    'UnsignedInt UnsignedInt UnsignedInt UnsignedInt': 'tuple[int, int, int, int]',
+    'UnsignedInt UnsignedInt UnsignedInt UnsignedInt on|off': 'tuple[int, int, int, int, bool]',
+    'UnsignedInt on|off': 'tuple[int, bool]',
+    'UnsignedInt on|off (multi-use)': 'tuple[int, bool]',
+    '[ Float Float Float ] (multi-use)': tuple[float, float, float],
+    '[ String Script ]': 'tuple[str, str]',
+    '[ on|off Float ]': 'tuple[bool, float]',
+    'on|off': bool.__name__,
+    'on|off (Query Arg Mandatory)': bool.__name__,
+    'on|off (Query Arg Optional)': bool.__name__,
+    'on|off (multi-use)': bool.__name__,
+    'on|off String': 'tuple[bool, str]',
+    'on|off String Int': 'tuple[bool, str, int]',
+    'on|off String String String String (multi-use)': 'tuple[bool, str, str, str, str]',
+    'on|off on|off': 'tuple[bool, bool]',
+    'on|off on|off on|off': 'tuple[bool, bool, bool]',
+    'on|off on|off on|off on|off': 'tuple[bool, bool, bool, bool]',
+    'on|off on|off on|off on|off on|off': 'tuple[bool, bool, bool, bool, bool]',
+    'on|off on|off on|off on|off on|off on|off on|off': 'tuple[bool, bool, bool, bool, bool, bool, bool]'
+ }
 
 cmdSynopsisTypes = {
     'float': float.__name__, 
@@ -444,7 +446,7 @@ cmdKeyWordTypes = {
     '[linear, linear, linear]': 'list[float]',
     '[linear, linear]': 'list[float]',
     '[name, string]': 'list[str]',
-    '[name, int]': 'tuple(str, int)',
+    '[name, int]': 'tuple[str, int]',
     '[script, script]': 'list[str]',
     '[script, string]': 'list[str]',
     '[string, [, string, ], [, string, ]]': 'list[str, list[str], list[str]]',
@@ -510,7 +512,7 @@ cmdRetrunTypes = {
     'int[]': 'list[int]', 
     'boolean[]': 'list[bool]', 
     'selectionItem[]': 'list[str]', 
-    'string[]|string|int': 'typing.Union([str], str, int)',
+    'string[]|string|int': 'typing.Union[list[str], str, int]',
 }
 
 def getCmdFlagSplit(flag: str) -> tuple[str, str, typing.Optional[str]]:
@@ -535,7 +537,7 @@ def getFunStr(synopsis: str, cmdKeyWords: list[str], edit=False, query=False):
     funStr = ''
 
     keyWords = []
-    cmdFlags = {}
+    # cmdFlags = {}
     for word in cmdKeyWords:
         if len(word) > 30: continue
         name, t_, v_ = getCmdFlagSplit(word)
@@ -546,8 +548,10 @@ def getFunStr(synopsis: str, cmdKeyWords: list[str], edit=False, query=False):
         #     print(name, t_, v_)
         #     raise
         sf = w_.split(')')[0]
-        cmdFlags[lf] = sf
+        # cmdFlags[lf] = sf
         keyWords.append('{}: {} = ...'.format(lf, cmdKeyWordTypes[t_]))
+        if lf != sf and sf:
+            keyWords.append('{}: {} = ...'.format(sf, cmdKeyWordTypes[t_]))
     
     if edit:
         keyWords.append('edit: bool = ...')
@@ -587,18 +591,18 @@ def getFunStr(synopsis: str, cmdKeyWords: list[str], edit=False, query=False):
     funStr += temp + ')'
     funStr = funStr.replace('\n', '')
 
-    overload = funStr
-    for lf in cmdFlags:
-        sf = cmdFlags[lf]
-        if sf:
-            overload = overload.replace(lf+':', sf+':')
+    # overload = funStr
+    # for lf in cmdFlags:
+    #     sf = cmdFlags[lf]
+    #     if sf:
+    #         overload = overload.replace(lf+':', sf+':')
     
     # if edit:
     #     overload = overload.replace('edit:', 'e:')
     # if query:
     #     overload = overload.replace('query:', 'q:')
 
-    return (funStr, overload)
+    return (funStr, '')
 
 def getCmdStr(synopsis: str, returnType: list[str], docContent: str, arguments: dict, example: str):
     rt = returnType[-1]
@@ -607,7 +611,7 @@ def getCmdStr(synopsis: str, returnType: list[str], docContent: str, arguments: 
     funcStr, funcOverload = getFunStr(synopsis, list(arguments.keys()), edit, query)
     funcRt = ' -> {}:\n'.format(cmdRetrunTypes.get(rt, 'typing.Any'))
     funcStr += funcRt
-    funcOverload += funcRt
+    # funcOverload += funcRt
     dcFirstLineIndex = docContent.find('\n')
     docCont = docContent[dcFirstLineIndex:].strip()
     docstring = "    '''{}\n\n".format(docCont.replace('\n', '\n\t').expandtabs(4))
@@ -633,11 +637,11 @@ def getCmdStr(synopsis: str, returnType: list[str], docContent: str, arguments: 
     out = funcStr + docstring
 
     # overload function
-    overload = '@typing.overload\n'
-    overload += funcOverload
-    overload += docstring
+    # overload = '@typing.overload\n'
+    # overload += funcOverload
+    # overload += docstring
 
-    return out + overload
+    return out# + overload
 
 def getArgumentRTs(parser: CmdParaser):
     types = {}
@@ -700,29 +704,29 @@ def writePYI(cmdModule, htmlTemp: str, pyiPath: str):
         else:
             flags, types = getCmdFlags(funcName, helpDoc)
             if not funcName.startswith('__'):
-                lfFunc = '@typing.overload'
+                # lfFunc = '@typing.overload'
                 sfFunc = '\ndef {}(*args: typing.Any, '.format(funcName)
-                lfFunc += sfFunc
-                onlySFFunc = False
+                # lfFunc += sfFunc
+                # onlySFFunc = False
                 for sf in flags:
                     t_ = 'typing.Any'
                     if sf in types:
                         t_ = helpFuncTypes.get(types[sf], 'typing.Any')
 
-                    lf = flags[sf]
-                    onlySFFunc = not lf
-                    if keyword.iskeyword(lf): lf += '_'
-                    lfFunc += '{}: {} = ..., '.format(lf, t_)
-                    if keyword.iskeyword(sf): sf += '_'
-                    sfFunc += '{}: {} = ..., '.format(sf, t_)
-                lfFunc += '):\n'
-                lfFunc += "    '''{}'''\n\n".format(helpDoc.replace('\n', '\n\t').expandtabs(4))
+                    # lf = flags[sf]
+                    # onlySFFunc = not lf
+                    # if not keyword.iskeyword(lf):
+                    #     lfFunc += '{}: {} = ..., '.format(lf, t_)
+                    if not keyword.iskeyword(sf):
+                        sfFunc += '{}: {} = ..., '.format(sf, t_)
+                # lfFunc += '):\n'
+                # lfFunc += "    '''{}'''\n\n".format(helpDoc.replace('\n', '\n\t').expandtabs(4))
                 sfFunc += '):\n'
                 sfFunc += "    '''{}'''\n\n".format(helpDoc.replace('\n', '\n\t').expandtabs(4))
 
                 cmdpyi += sfFunc
-                if not onlySFFunc:
-                    cmdpyi += lfFunc
+                # if not onlySFFunc:
+                #     cmdpyi += lfFunc
 
     with open(pyiPath, 'w', encoding='utf8') as pyi:
         pyi.write('{}'.format(cmdpyi))
